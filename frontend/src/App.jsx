@@ -1,19 +1,17 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import Front from "./components/Main/front";
-import Cart from "./pages/cart";
-import Total from "./pages/Total";
-
-
+import "./index.css";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { useState } from "react";
+import SellerAccount from "./components/buy_sell/seller_account";
+import SellerSignIn from "./components/buy_sell/seller_signin";
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="bg-green-500 h-screen">
-      <Cart />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/seller/signup" element={<SellerAccount />}></Route>
+        <Route path="/seller/signin" element={<SellerSignIn />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

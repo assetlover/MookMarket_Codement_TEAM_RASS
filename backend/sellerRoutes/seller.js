@@ -22,9 +22,9 @@ function generateRandomBalance() {
 }
 router.post("/signup", async (req, res) => {
   const sellerSignupData = req.body;
+  console.log(sellerSignupData);
   sellerSignupData.currBalance = generateRandomBalance();
   const parsedPayload = sellerSignupSchema.safeParse(sellerSignupData);
-
   let isSellerPresent = null;
   try {
     isSellerPresent = await SellerDb.find({
