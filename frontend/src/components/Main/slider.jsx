@@ -14,24 +14,24 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
   {
-    label: 'San Francisco – Oakland Bay Bridge, United States',
+    
     imgPath:
-      'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+      'https://cdn.create.vista.com/downloads/8dccc04b-0d12-4d30-8e24-89a0fdf059be_1024.jpeg',
   },
   {
-    label: 'Bird',
+    
     imgPath:
-      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+      'https://thumbs.dreamstime.com/b/big-sale-proposition-farm-food-banner-vector-illustration-natural-vegetable-organic-farming-retail-vegan-product-store-88094083.jpg',
   },
   {
-    label: 'Bali, Indonesia',
+    
     imgPath:
-      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
+      'https://agrimp-prod.s3.amazonaws.com/public/AgriMP_Social_Banner.png',
   },
   {
-    label: 'Goč, Serbia',
+    
     imgPath:
-      'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+      'https://images.freekaamaal.com/store_desc_images/1558435083.jpg',
   },
 ];
 
@@ -57,6 +57,8 @@ function Slider() {
       sx={{
         width: 'calc(100% - 4rem)',
         margin: '0 2rem',
+        borderRadius: '10px', // Adding border radius
+        overflow: 'hidden', // Hide overflow for rounded corners
       }}
     >
       <Paper
@@ -86,7 +88,7 @@ function Slider() {
                 sx={{
                   height: 350,
                   display: 'block',
-                  
+                  borderRadius: '10px', // Adding border radius
                   overflow: 'hidden',
                   width: '100%',
                 }}
@@ -131,3 +133,4 @@ function Slider() {
 }
 
 export default Slider;
+

@@ -16,7 +16,7 @@ const Footer = () => {
             <li className="mb-2">Link 6</li>
           </ul>
         </div>
-        <p className="mt-4">© 2024 Your Company. All rights reserved.</p>
+        <p className="mt-4">©MooMarket. All rights reserved.</p>
       </div>
     </footer>
   );
