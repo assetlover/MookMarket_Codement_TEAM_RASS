@@ -6,6 +6,7 @@ const userSignupSchema = z.object({
   password: z.string().min(8),
   city: z.string(),
   district: z.string(),
+  currBalance: z.string(),
 });
 const userSigninSchema = z.object({
   username: z.string().min(3),

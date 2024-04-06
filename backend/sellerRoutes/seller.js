@@ -6,13 +6,25 @@ const saltrounds = 11;
 router = express.Router();
 const JWT_SECRET = require("../config");
 const { sellerSignupSchema, sellerSigninSchema } = require("./sellerSchema");
-const { SellerDb, DairyProductsDb } = require("../db/db");
+const {
+  SellerDb,
+  DairyProductsDb,
+  VegetableDb,
+  FruitsDB,
+} = require("../db/db");
 const sellerAuthMiddleware = require("./sellerMiddleware");
 const { DairyProductSchema } = require("../productsRoutes/dairyProductSchema");
 const { parse } = require("dotenv");
+const { VegetableSchema } = require("../productsRoutes/vegetableSchema");
+const { FruitsSchema } = require("../productsRoutes/fruitsSchema");
+function generateRandomBalance() {
+  return (Math.floor(Math.random() * (1000000 - 1000 + 1)) + 1000).toFixed(2);
+}
 router.post("/signup", async (req, res) => {
   const sellerSignupData = req.body;
+  sellerSignupData.currBalance = generateRandomBalance();
   const parsedPayload = sellerSignupSchema.safeParse(sellerSignupData);
+
   let isSellerPresent = null;
   try {
     isSellerPresent = await SellerDb.find({
@@ -95,6 +107,7 @@ router.post("/dairyProducts", sellerAuthMiddleware, async (req, res) => {
     productDetail.city = city;
     productDetail.district = district;
     productDetail.sellername = username;
+    productDetail.category = "dairy";
     // console.log(req.seller);
     // console.log(req.seller._id);
     productDetail.seller = _id;
@@ -107,8 +120,9 @@ router.post("/dairyProducts", sellerAuthMiddleware, async (req, res) => {
     }
     try {
       console.log(parsedProductDetails.data);
-      await DairyProductsDb(parsedProductDetails.data);
-
+      const isProductSaved = await DairyProductsDb.create(
+        parsedProductDetails.data
+      );
       if (isProductSaved) {
         res.status(201).json({ message: "Dairy product created successfully" });
         return;
@@ -117,6 +131,84 @@ router.post("/dairyProducts", sellerAuthMiddleware, async (req, res) => {
         return;
       }
     } catch (err) {
+      console.log(err);
+      res.status(400).json({ msg: "Could not add the product" });
+      return;
+    }
+  } catch (error) {
+    console.error("Error creating dairy product:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+router.post("/vegetable", sellerAuthMiddleware, async (req, res) => {
+  try {
+    const productDetail = req.body;
+    const { _id, city, district, username } = req.seller;
+    productDetail.city = city;
+    productDetail.district = district;
+    productDetail.sellername = username;
+    productDetail.category = "vegetable";
+    productDetail.seller = _id;
+    const parsedProductDetails = VegetableSchema.safeParse(productDetail);
+    if (!parsedProductDetails.success) {
+      console.log(parsedProductDetails.error);
+      return res.status(400).json({
+        msg: "Invalid product details",
+      });
+    }
+    try {
+      console.log(parsedProductDetails.data);
+      const isProductSaved = await VegetableDb.create(
+        parsedProductDetails.data
+      );
+      console.log(isProductSaved);
+      if (isProductSaved) {
+        res
+          .status(201)
+          .json({ message: "Vegetable product created successfully" });
+        return;
+      } else {
+        res.status(400).json({ msg: "Could not add the product" });
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({ msg: "Could not add the product" });
+      return;
+    }
+  } catch (error) {
+    console.error("Error creating dairy product:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+router.post("/fruit", sellerAuthMiddleware, async (req, res) => {
+  try {
+    const productDetail = req.body;
+    const { _id, city, district, username } = req.seller;
+    productDetail.city = city;
+    productDetail.district = district;
+    productDetail.sellername = username;
+    productDetail.category = "fruit";
+    productDetail.seller = _id;
+    const parsedProductDetails = FruitsSchema.safeParse(productDetail);
+    if (!parsedProductDetails.success) {
+      console.log(parsedProductDetails.error);
+      return res.status(400).json({
+        msg: "Invalid product details",
+      });
+    }
+    try {
+      const isProductSaved = await FruitsDB.create(parsedProductDetails.data);
+      console.log(isProductSaved);
+      if (isProductSaved) {
+        res.status(201).json({ message: "Fruit product created successfully" });
+        return;
+      } else {
+        res.status(400).json({ msg: "Could not add the product" });
+        return;
+      }
+    } catch (err) {
+      console.log(err);
       res.status(400).json({ msg: "Could not add the product" });
       return;
     }

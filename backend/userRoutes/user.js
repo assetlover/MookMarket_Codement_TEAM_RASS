@@ -8,10 +8,15 @@ const JWT_SECRET = require("../config");
 const { userSignupSchema, userSigninSchema } = require("./userSchema");
 const { UserDB } = require("../db/db");
 const userAuthMiddleware = require("./userMiddleware");
+function generateRandomBalance() {
+  return (Math.floor(Math.random() * (1000000 - 1000 + 1)) + 1000).toFixed(2);
+}
 router.post("/signup", async (req, res) => {
   const userSignupData = req.body;
+  userSignupData.currBalance = generateRandomBalance();
   const parsedPayload = userSignupSchema.safeParse(userSignupData);
   let isUserPresent = null;
+  console.log(parsedPayload);
   try {
     isUserPresent = await UserDB.find({
       $or: [

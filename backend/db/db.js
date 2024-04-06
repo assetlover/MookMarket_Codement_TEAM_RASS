@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  currBalance: {
+    type: Number,
+    required: true,
+  },
 });
 const sellerSchema = new mongoose.Schema({
   username: {
@@ -69,6 +73,10 @@ const sellerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  currBalance: {
+    type: Number,
+    required: true,
+  },
 });
 
 const dairyProductSchema = new mongoose.Schema({
@@ -80,6 +88,7 @@ const dairyProductSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
   currentQuantity: {
     type: Number,
     required: true,
@@ -92,13 +101,45 @@ const dairyProductSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  city: {
+    type: String,
+    required: true,
+  },
+  district: {
+    type: String,
+    required: true,
+  },
+  sellername: {
+    type: String,
+    required: true,
+  },
   seller: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Seller",
     required: true,
   },
-  username: {
+  category: {
     type: String,
+    required: true,
+  },
+});
+const vegetableSchema = new mongoose.Schema({
+  itemName: {
+    type: String,
+    required: true,
+  },
+  itemDescription: {
+    type: String,
+    required: true,
+  },
+
+  currentQuantity: {
+    type: Number,
+    required: true,
+  },
+
+  price: {
+    type: Number,
     required: true,
   },
   city: {
@@ -109,9 +150,68 @@ const dairyProductSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  sellername: {
+    type: String,
+    required: true,
+  },
+  seller: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Seller",
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
 });
+const FruitSchema = new mongoose.Schema({
+  itemName: {
+    type: String,
+    required: true,
+  },
+  itemDescription: {
+    type: String,
+    required: true,
+  },
 
+  currentQuantity: {
+    type: Number,
+    required: true,
+  },
+
+  price: {
+    type: Number,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  district: {
+    type: String,
+    required: true,
+  },
+  sellername: {
+    type: String,
+    required: true,
+  },
+  seller: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Seller",
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
+  season: {
+    type: String,
+    required: true,
+  },
+});
 const UserDB = mongoose.model("User", userSchema);
 const SellerDb = mongoose.model("Seller", sellerSchema);
 const DairyProductsDb = mongoose.model("DairyProduct", dairyProductSchema);
-module.exports = { UserDB, SellerDb, DairyProductsDb };
+const VegetableDb = mongoose.model("Vegetable", vegetableSchema);
+const FruitsDB = mongoose.model("Fruits", FruitSchema);
+module.exports = { UserDB, SellerDb, DairyProductsDb, VegetableDb, FruitsDB };

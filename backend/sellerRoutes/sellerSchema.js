@@ -6,6 +6,7 @@ const sellerSignupSchema = z.object({
   password: z.string().min(8),
   city: z.string(),
   district: z.string(),
+  currBalance: z.string(),
 });
 const sellerSigninSchema = z.object({
   username: z.string().min(3),
