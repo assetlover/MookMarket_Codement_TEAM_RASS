@@ -13,7 +13,7 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <form className="flex items-center justify-center mb-4" onSubmit={handleSubmit}>
+    <form className="flex items-center justify-center mb-4 mt-4" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Search..."

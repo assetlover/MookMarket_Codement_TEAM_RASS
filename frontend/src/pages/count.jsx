@@ -22,8 +22,15 @@ const Count = () => {
     }
   };
 
-  const addToCart = (index) => {
-    console.log('Added to cart:', products[index]);
+  const removeFromCart = (index) => {
+    const newProducts = [...products];
+    newProducts.splice(index, 1);
+    setProducts(newProducts);
+  };
+
+  const handleProceed = () => {
+    // Add logic to proceed to the checkout page
+    console.log('Proceed to checkout');
   };
 
   return (
@@ -35,6 +42,7 @@ const Count = () => {
             <th className="px-4 py-2">Product</th>
             <th className="px-4 py-2">Image</th>
             <th className="px-4 py-2">Quantity</th>
+            <th className="px-4 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -59,13 +67,28 @@ const Count = () => {
                   +
                 </button>
               </td>
+              <td className="border px-4 py-2">
+                <button
+                  className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                  onClick={() => removeFromCart(index)}
+                >
+                  Remove
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <div className="flex justify-center mt-4">
+        <button
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+          onClick={handleProceed}
+        >
+          Proceed
+        </button>
+      </div>
     </div>
   );
 };
 
 export default Count;
-
