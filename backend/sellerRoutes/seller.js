@@ -144,6 +144,9 @@ router.post("/vegetable", sellerAuthMiddleware, async (req, res) => {
   try {
     const productDetail = req.body;
     const { _id, city, district, username } = req.seller;
+    productDetail.currentQuantity = parseInt(productDetail.currentQuantity);
+    productDetail.price = parseInt(productDetail.price);
+
     productDetail.city = city;
     productDetail.district = district;
     productDetail.sellername = username;

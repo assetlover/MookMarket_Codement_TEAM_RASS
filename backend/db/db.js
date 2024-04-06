@@ -208,6 +208,10 @@ const FruitSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  subCategory: {
+    type: String,
+    required: true,
+  },
 });
 const UserDB = mongoose.model("User", userSchema);
 const SellerDb = mongoose.model("Seller", sellerSchema);

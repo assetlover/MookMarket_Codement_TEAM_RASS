@@ -11,8 +11,8 @@ const sellerAuthMiddleware = async (req, res, next) => {
   }
 
   try {
+    console.log(token + "" + JWT_SECRET);
     const sellername = jwt.verify(token, JWT_SECRET);
-
     const seller = await SellerDb.findOne({
       username: sellername,
     }).select("username _id city district");

@@ -11,7 +11,6 @@ const DairyProductSchema = z.object({
   sellername: z.string(),
   seller: z.any(),
   category: z.string(),
-  currBalance: z.string(),
 });
 
 module.exports = { DairyProductSchema };

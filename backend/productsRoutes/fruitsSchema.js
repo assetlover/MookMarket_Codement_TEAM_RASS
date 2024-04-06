@@ -11,6 +11,7 @@ const FruitsSchema = z.object({
   seller: z.any(),
   category: z.string(),
   season: z.string(),
+  subCategory: z.string(),
 });
 
 module.exports = { FruitsSchema };
