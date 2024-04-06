@@ -6,8 +6,10 @@ const saltrounds = 11;
 router = express.Router();
 const JWT_SECRET = require("../config");
 const { sellerSignupSchema, sellerSigninSchema } = require("./sellerSchema");
-const { SellerDb } = require("../db/db");
+const { SellerDb, DairyProductsDb } = require("../db/db");
 const sellerAuthMiddleware = require("./sellerMiddleware");
+const { DairyProductSchema } = require("../productsRoutes/dairyProductSchema");
+const { parse } = require("dotenv");
 router.post("/signup", async (req, res) => {
   const sellerSignupData = req.body;
   const parsedPayload = sellerSignupSchema.safeParse(sellerSignupData);
@@ -86,8 +88,41 @@ router.post("/signin", async (req, res) => {
     return res.status(500).json({ msg: "Internal Server Error" });
   }
 });
-router.post("/postProduct", sellerAuthMiddleware, async (req, res) => {
-  console.log(req.seller);
-  res.status(200).json({});
+router.post("/dairyProducts", sellerAuthMiddleware, async (req, res) => {
+  try {
+    const productDetail = req.body;
+    const { _id, city, district, username } = req.seller;
+    productDetail.city = city;
+    productDetail.district = district;
+    productDetail.sellername = username;
+    // console.log(req.seller);
+    // console.log(req.seller._id);
+    productDetail.seller = _id;
+    const parsedProductDetails = DairyProductSchema.safeParse(productDetail);
+    if (!parsedProductDetails.success) {
+      console.log(parsedProductDetails.error);
+      return res.status(400).json({
+        msg: "Invalid product details",
+      });
+    }
+    try {
+      console.log(parsedProductDetails.data);
+      await DairyProductsDb(parsedProductDetails.data);
+
+      if (isProductSaved) {
+        res.status(201).json({ message: "Dairy product created successfully" });
+        return;
+      } else {
+        res.status(400).json({ msg: "Could not add the product" });
+        return;
+      }
+    } catch (err) {
+      res.status(400).json({ msg: "Could not add the product" });
+      return;
+    }
+  } catch (error) {
+    console.error("Error creating dairy product:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 module.exports = router;

@@ -71,7 +71,47 @@ const sellerSchema = new mongoose.Schema({
   },
 });
 
+const dairyProductSchema = new mongoose.Schema({
+  itemName: {
+    type: String,
+    required: true,
+  },
+  itemDescription: {
+    type: String,
+    required: true,
+  },
+  currentQuantity: {
+    type: Number,
+    required: true,
+  },
+  animalOrigin: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  seller: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Seller",
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  district: {
+    type: String,
+    required: true,
+  },
+});
+
 const UserDB = mongoose.model("User", userSchema);
 const SellerDb = mongoose.model("Seller", sellerSchema);
-//product name despcrition imagelink  location == usersloaction
-module.exports = { UserDB, SellerDb };
+const DairyProductsDb = mongoose.model("DairyProduct", dairyProductSchema);
+module.exports = { UserDB, SellerDb, DairyProductsDb };

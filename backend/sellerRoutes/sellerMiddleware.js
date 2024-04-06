@@ -5,27 +5,23 @@ const { SellerDb } = require("../db/db"); // Assuming you have a User model
 const sellerAuthMiddleware = async (req, res, next) => {
   // Extract token from request body
   const token = req.headers.authorization;
-
+  // console.log(token);
   if (!token) {
     return res.status(401).json({ msg: "No token provided" });
   }
 
   try {
-    // Verify token
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const sellername = jwt.verify(token, JWT_SECRET);
 
-    // Check if the user exists in the database
     const seller = await SellerDb.findOne({
-      username: decoded.username,
-    }).select("username _id");
+      username: sellername,
+    }).select("username _id city district");
     if (!seller) {
       return res.status(401).json({ msg: "User does not exist" });
     }
 
-    // Attach user information to request object for further processing
     req.seller = seller;
-
-    // Proceed to next middleware
+    console.log(seller._id);
     next();
   } catch (err) {
     console.error("Error authorizing user:", err);
