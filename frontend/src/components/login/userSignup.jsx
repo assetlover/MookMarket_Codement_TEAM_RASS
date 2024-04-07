@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 const UserAccount = () => {
   const navigate = useNavigate();
   const sendToSignIn = async () => {
-    navigate("/seller/signin");
+    navigate("/user/signin");
   };
   const [formData, setFormData] = useState({
     username: "",
@@ -41,6 +41,7 @@ const UserAccount = () => {
         const finalRes = await response.json();
         const token = finalRes.token;
         localStorage.setItem("token", token);
+        navigate("/user");
       } catch (err) {
         console.error("Error:", err);
       }
@@ -50,10 +51,10 @@ const UserAccount = () => {
   };
 
   return (
-    <div className="bg-lime-200 min-h-screen flex justify-center items-center">
-      <div className="border-inherit bg-lime-300 ml-72 mt-10 mb-10">
+    <div className="bg-lime-200 min-h-screen w-full flex justify-center items-center">
+      <div className="border-inherit bg-lime-300  mt-10 mb-10">
         <div className="container mx-auto px-4 py-8  shadow-md rounded-xl min-h-96">
-          <h2 className="text-xl font-bold mb-4">Seller Account</h2>
+          <h2 className="text-xl font-bold mb-4">Customer Account</h2>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col h-full justify-between items-around">
               <div className="py-2">

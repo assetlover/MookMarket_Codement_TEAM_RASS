@@ -158,7 +158,11 @@ export default function Header() {
           </a>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a
+            href="#"
+            className="text-sm font-semibold leading-6 text-gray-900"
+            onClick={() => navigate("/choice")}
+          >
             Log in <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
@@ -240,15 +244,17 @@ export default function Header() {
                 </a>
               </div>
               <div className="py-6">
-                <a
-                  onClick={() => {
-                    navigate("/user/signup");
-                  }}
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
+                <p className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                  <a
+                    href="#"
+                    onClick={() => {
+                      console.log(1);
+                      navigate("/choice");
+                    }}
+                  >
+                    Log in
+                  </a>
+                </p>
               </div>
             </div>
           </div>

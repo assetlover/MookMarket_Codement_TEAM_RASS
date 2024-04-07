@@ -51,7 +51,7 @@ const SellerAccount = () => {
 
   return (
     <div className="bg-lime-200 min-h-screen flex justify-center items-center">
-      <div className="border-inherit bg-lime-300 ml-72 mt-10 mb-10">
+      <div className="border-inherit bg-lime-300  mt-10 mb-10">
         <div className="container mx-auto px-4 py-8  shadow-md rounded-xl min-h-96">
           <h2 className="text-xl font-bold mb-4">Seller Account</h2>
           <form onSubmit={handleSubmit}>
