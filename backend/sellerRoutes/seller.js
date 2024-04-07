@@ -220,4 +220,25 @@ router.post("/fruit", sellerAuthMiddleware, async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+router.get("/seller/products", sellerAuthMiddleware, async (req, res) => {
+  try {
+    // Retrieve seller ID from req.seller
+    const sellername = req.seller.username;
+    console.log(sellername);
+    // Find all products listed by the seller
+    const dairyProducts = await DairyProductsDb.find({
+      sellername: sellername,
+    });
+    const fruits = await FruitsDB.find({ sellername: sellername });
+
+    const vegetable = await VegetableDb.find({ sellername: sellername });
+
+    const allProducts = [...dairyProducts, ...fruits, ...vegetable];
+    console.log(dairyProducts);
+    res.status(200).json(allProducts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
 module.exports = router;

@@ -21,7 +21,7 @@ const sellerAuthMiddleware = async (req, res, next) => {
     }
 
     req.seller = seller;
-    console.log(seller._id);
+    console.log(seller);
     next();
   } catch (err) {
     console.error("Error authorizing user:", err);
