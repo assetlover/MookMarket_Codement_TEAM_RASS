@@ -9,12 +9,17 @@ import AddProduct from "./components/buy_sell/add_products";
 import AddDairyProduct from "./components/buy_sell/addDairyProduct";
 import AddVegetableProduct from "./components/buy_sell/addVegetables";
 import AddFruits from "./components/buy_sell/addFruits";
+import UserFront from "./components/Main/userFront";
+import UserAccount from "./components/login/userSignup";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Front />}></Route>
+        <Route path="/user" element={<UserFront />}></Route>
+        <Route path="/user/signup" element={<UserAccount />}></Route>
+
         <Route path="/seller/signup" element={<SellerAccount />}></Route>
         <Route path="/seller/signin" element={<SellerSignIn />}></Route>
         <Route path="/seller/addProducts" element={<AddProduct />}></Route>

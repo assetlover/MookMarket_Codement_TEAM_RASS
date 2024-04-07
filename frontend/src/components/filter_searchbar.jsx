@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-const SearchBar = ({ onSearch, onFilter }) => {
+const SearchBarandFilter = ({ SetProductType }) => {
   const [searchTerm, setSearchTerm] = useState("");
-
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -14,28 +13,14 @@ const SearchBar = ({ onSearch, onFilter }) => {
   };
 
   const handleFilter = async (category) => {
-    onFilter(category);
     if (category === "dairy") {
-      await fetchAndSearch("https://api.example.com/dairy");
+      SetProductType("dairy");
     } else if (category === "fruits") {
-      await fetchAndSearch("https://api.example.com/fruits");
+      SetProductType("fruit");
     } else if (category === "vegetables") {
-      await fetchAndSearch("https://api.example.com/vegetables");
-    }
-  };
-
-  const fetchAndSearch = async (url) => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch ${url}`);
-      }
-      const data = await response.json();
-      console.log(`${url} Data:`, data);
-      // Handle the fetched data as needed
-      onSearch(searchTerm); // Trigger search with the updated data
-    } catch (error) {
-      console.error(`Error fetching ${url}:`, error);
+      SetProductType("vegetable");
+    } else if (category === "all") {
+      SetProductType("all");
     }
   };
 
@@ -79,14 +64,15 @@ const SearchBar = ({ onSearch, onFilter }) => {
         >
           Vegetables
         </button>
+        <button
+          onClick={() => handleFilter("all")}
+          className="px-4 py-2 ml-2 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 focus:outline-none"
+        >
+          All
+        </button>
       </div>
     </div>
   );
 };
 
-SearchBar.propTypes = {
-  onSearch: PropTypes.func.isRequired,
-  onFilter: PropTypes.func.isRequired,
-};
-
-export default SearchBar;
+export default SearchBarandFilter;
