@@ -1,23 +1,35 @@
 import React from "react";
 import Card from "./cards";
-import details from "../../details";
 
-function createCard(emojiTerm) {
-  return (
+function ProductCategory({ currentProductType, products }) {
+  // Filter products based on the current product type
+  let filteredProducts = products;
+  console.log(currentProductType);
+  if (currentProductType !== "all") {
+    filteredProducts = products.filter(
+      (product) => product.category === currentProductType
+    );
+  }
+
+  // Function to create card component for each filtered product
+  const createCard = (product) => (
     <Card
-      key={emojiTerm.id}
-      imgURL={emojiTerm.imgURL}
-      name={emojiTerm.name}
-      meaning={emojiTerm.price}
+      key={product._id}
+      imgURL={""} // Assuming you have imgURL in your product data
+      name={product.itemName}
+      price={product.price}
+      sellerName={product.sellername}
+      location={product.city + "," + product.district} // Assuming price is present in your product data
     />
   );
-}
-function Scroll() {
+
   return (
     <div>
-      <dl className="dictionary flex flex-wrap justify-between m-10 max-w-90">{details.map(createCard)}</dl>
+      <dl className="dictionary flex flex-row flex-wrap justify-even m-10 max-w-90">
+        {filteredProducts.map(createCard)}
+      </dl>
     </div>
   );
 }
 
-export default Scroll;
+export default ProductCategory;

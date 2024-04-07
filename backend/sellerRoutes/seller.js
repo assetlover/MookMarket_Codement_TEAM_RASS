@@ -220,7 +220,7 @@ router.post("/fruit", sellerAuthMiddleware, async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-router.get("/seller/products", sellerAuthMiddleware, async (req, res) => {
+router.get("/products", sellerAuthMiddleware, async (req, res) => {
   try {
     // Retrieve seller ID from req.seller
     const sellername = req.seller.username;

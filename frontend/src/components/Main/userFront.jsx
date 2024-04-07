@@ -4,10 +4,14 @@ import ProductCategory from "./scroll";
 import SliderComp from "./slider";
 import Footer from "./footer";
 import SearchBarandFilter from "../filter_searchbar";
-
-function Front() {
+import { useNavigate } from "react-router-dom";
+function UserFront() {
+  const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:3000/user/products")
+    if (!localStorage.getItem(token)) {
+      navigate("/user/signup");
+    }
+    fetch("http://localhost:3000/user/getproducts")
       .then((response) => response.json())
       .then((data) => SetProduct(data))
       .catch((error) => console.error("Error fetching products:", error));
@@ -26,4 +30,4 @@ function Front() {
     </div>
   );
 }
-export default Front;
+export default UserFront;

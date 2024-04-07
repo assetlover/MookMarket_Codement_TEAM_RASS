@@ -6,7 +6,7 @@ const saltrounds = 11;
 router = express.Router();
 const JWT_SECRET = require("../config");
 const { userSignupSchema, userSigninSchema } = require("./userSchema");
-const { UserDB } = require("../db/db");
+const { UserDB, DairyProductsDb, FruitsDB, VegetableDb } = require("../db/db");
 const userAuthMiddleware = require("./userMiddleware");
 function generateRandomBalance() {
   return (Math.floor(Math.random() * (1000000 - 1000 + 1)) + 1000).toFixed(2);
@@ -91,8 +91,34 @@ router.post("/signin", async (req, res) => {
     return res.status(500).json({ msg: "Internal Server Error" });
   }
 });
-router.get("/allProducts", userAuthMiddleware, async (req, res) => {
-  console.log(req.user);
-  res.status(200).json({ msg: "middleware success" });
+router.get("/products", async (req, res) => {
+  try {
+    const dairyProducts = await DairyProductsDb.find({});
+    const fruits = await FruitsDB.find({});
+
+    const vegetable = await VegetableDb.find({});
+
+    const allProducts = [...dairyProducts, ...fruits, ...vegetable];
+    console.log(dairyProducts);
+    res.status(200).json(allProducts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+router.get("/getproducts", userAuthMiddleware, async (req, res) => {
+  try {
+    const dairyProducts = await DairyProductsDb.find({});
+    const fruits = await FruitsDB.find({});
+
+    const vegetable = await VegetableDb.find({});
+
+    const allProducts = [...dairyProducts, ...fruits, ...vegetable];
+    console.log(dairyProducts);
+    res.status(200).json(allProducts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
 });
 module.exports = router;
