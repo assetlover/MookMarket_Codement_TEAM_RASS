@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SellerSignIn = () => {
+const UserSignIn = () => {
   const navigate = useNavigate();
   const sendToSignUp = () => {
-    navigate("/seller/signup");
+    navigate("/user/signup");
   };
   const [formData, setFormData] = useState({
     username: "",
@@ -27,7 +27,7 @@ const SellerSignIn = () => {
 
     if (Object.keys(errors).length === 0) {
       try {
-        const response = await fetch("http://localhost:3000/seller/signin", {
+        const response = await fetch("http://localhost:3000/user/signin", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const SellerSignIn = () => {
         const finalRes = await response.json();
         const token = finalRes.token;
         localStorage.setItem("token", token);
-        navigate("user/getproducts");
+        navigate("/user/getproducts");
       } catch (err) {
         console.error("Error:", err);
       }
@@ -51,7 +51,7 @@ const SellerSignIn = () => {
     <div className="bg-lime-200 min-h-screen flex justify-center items-center">
       <div className="border-inherit bg-lime-300  mt-10 mb-10">
         <div className="container mx-auto px-4 py-8  shadow-md rounded-xl min-h-96">
-          <h2 className="text-xl font-bold mb-4">Seller Sign In</h2>
+          <h2 className="text-xl font-bold mb-4">Customer Sign In</h2>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col h-full justify-between items-around">
               <div className="py-2">
@@ -101,4 +101,4 @@ const SellerSignIn = () => {
   );
 };
 
-export default SellerSignIn;
+export default UserSignIn;
