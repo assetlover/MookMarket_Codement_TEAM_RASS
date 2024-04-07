@@ -213,9 +213,45 @@ const FruitSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+const transportSchema = new mongoose.Schema({
+  username: {
+      type: String,
+      required: true,
+      minlength: 3,
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      // Assuming you want to validate email format
+      match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 8,
+    },
+    addressLine1: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    district: {
+      type: String,
+      required: true,
+    },
+   
+  });
+
+const TransportDB = mongoose.model("TransportDB" , transportSchema);
 const UserDB = mongoose.model("User", userSchema);
 const SellerDb = mongoose.model("Seller", sellerSchema);
 const DairyProductsDb = mongoose.model("DairyProduct", dairyProductSchema);
 const VegetableDb = mongoose.model("Vegetable", vegetableSchema);
 const FruitsDB = mongoose.model("Fruits", FruitSchema);
-module.exports = { UserDB, SellerDb, DairyProductsDb, VegetableDb, FruitsDB };
+module.exports = { UserDB, SellerDb, DairyProductsDb, VegetableDb, FruitsDB,TransportDB };
