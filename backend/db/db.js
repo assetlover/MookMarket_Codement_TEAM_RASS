@@ -247,26 +247,6 @@ const transportSchema = new mongoose.Schema({
     },
    
   });
- 
-
-  const cartDB = new mongoose.Schema({
-    productId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product',
-        required: true
-    },
-    quantity: {
-        type: Number,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true
-    }
-});
-
-const CartDB = mongoose.model("Cart", cartDB);
-
 
 const TransportDB = mongoose.model("TransportDB" , transportSchema);
 const UserDB = mongoose.model("User", userSchema);
@@ -274,4 +254,4 @@ const SellerDb = mongoose.model("Seller", sellerSchema);
 const DairyProductsDb = mongoose.model("DairyProduct", dairyProductSchema);
 const VegetableDb = mongoose.model("Vegetable", vegetableSchema);
 const FruitsDB = mongoose.model("Fruits", FruitSchema);
-module.exports = { UserDB, SellerDb, DairyProductsDb, VegetableDb, FruitsDB,TransportDB , CartDB };
+module.exports = { UserDB, SellerDb, DairyProductsDb, VegetableDb, FruitsDB,TransportDB };
